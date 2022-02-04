@@ -63,7 +63,6 @@ def all_model_statistics(data, outcome = "Attrition"):
     res_bayes = bayes_mod(X_train, y_train, X_test, y_test)
     res_log = log_mod(X_train, y_train, X_test, y_test)
     res_kn = kn_mod(X_train, y_train, X_test, y_test)
-    # res_svc = svc_mod(X_train, y_train, X_test, y_test)
     res_randfo = ranfo_mod(X_train, y_train, X_test, y_test)
     res_gradbo = gradbo_mod(X_train, y_train, X_test, y_test)
     res_lightgb = lightgb_mod(X_train, y_train, X_test, y_test)
@@ -99,7 +98,6 @@ def print_return_statistics(modelo, X_train, y_train, X_test, y_test, namemodel)
 
     # return a dictionary
     mydict = {}
-    # mydict[namemodel + "_acc"] = var_accuracty
     mydict["acc"] = var_accuracty
     mydict["recall"] = var_recall
     mydict["spec"] = var_specificity
@@ -239,22 +237,12 @@ def compare_models(data, model, target):
         print("kont: ", kont)
         print("X_train.shape: ", X_train.shape)
         print("y_train.shape: ", y_train.shape)
-        # print("train_index: ", train_index)
-        
-        # sampled,target = SMOTE().fit_resample(df[cols],df["Attrition"])
-        # df6 = pd. concat([sampled[cols], target], axis=1) 
         
         oversample = SMOTE()
         
-        # oversample = SMOTENC(categorical_features = cols_cat_idx, random_state=SEED)
-        # print(type(train_index))
-        # print(cols_cat_idx)
-        
         X_train2, y_train2 = oversample.fit_resample(X_train.iloc[train_index], y_train.iloc[train_index])
-                      
-        # X_train = X_train.iloc[train_index]
+
         X_val = X_train.iloc[val_index]
-        # y_train = y_train.iloc[train_index]
         y_val = y_train.iloc[val_index]
         
         X_train_scaled = X_train2
